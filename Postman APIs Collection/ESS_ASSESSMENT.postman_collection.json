@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "a51e7af6-f42b-4dc8-9882-abc889039227",
+		"name": "ESS_ASSESSMENT",
+		"description": "Welcome to the ESS Assessment project, a technical mock-up initiative for Expert System Solutions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30943561"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"AliJawadSheikh\", \"password\": \"ess123\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/user/signup",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"signup"
+							]
+						},
+						"description": "- Endpoint for user registration.\n- Validates the username and password.\n- Hashes the password for security.\n- Returns a JSON response with a user object and an authentication token upon successful registration."
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"AliJawad\", \"password\": \"olrrrright\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/login",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "- Endpoint for user login.\n- Validates the username and password.\n- Compares the provided password with the hashed password stored in the database.\n- Returns a JSON response with a user object and an authentication token upon successful login."
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"AliJawadSheikh\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/user/forgot-password",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"forgot-password"
+							]
+						},
+						"description": "- Endpoint for initiating a password reset process.\n    \n- Validates the username.\n    \n- Generates a reset token (JWT) and sends it to the user.\n    \n- The reset token can be used to verify and reset the password later."
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5OTIxMTcyMSwiZXhwIjoxNjk5MjE1MzIxfQ.3SX-_0Q3nzzh2VYtCswxD5M18yH24qWui5hQy88d3so\", \"newPassword\": \"ESS123456\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/user/reset-password",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"reset-password"
+							]
+						},
+						"description": "- Endpoint for resetting the user's password.\n    \n- Validates the reset token and the new password.\n    \n- Verifies the reset token and updates the password in the database.\n    \n- Returns a JSON response indicating a successful password reset."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to users."
+		},
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "creating-a-board",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Sprint 1\", \"description\": \"This will be our 1st Sprint\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/board",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"board"
+							]
+						},
+						"description": "- Endpoint for creating a new board.\n    \n- Requires authentication using the `isAuthenticated` middleware.\n    \n- Accepts a JSON body with a \"title\" and \"description\" for the new board.\n    \n- Associates the board with the authenticated user.\n    \n- Returns a JSON response with a message and the created board upon success."
+					},
+					"response": []
+				},
+				{
+					"name": "add-a-card-to-board",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Integrate SendGrid APIs\", \"description\": \"User will recieve a welcome email upon registration.\"}"
+						},
+						"url": {
+							"raw": "http://{{baseURL}}/board/{{boardId}}/cards",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"board",
+								"{{boardId}}",
+								"cards"
+							]
+						},
+						"description": "- Endpoint for adding a card to a specific board.\n    \n- Requires authentication using the `isAuthenticated` middleware.\n    \n- Accepts a JSON body with \"title\" and \"description\" for the new card.\n    \n- Checks if the user has access to the specified board (by board ID).\n    \n- Creates the card associated with the specified board.\n    \n- Returns a JSON response with a message and the created card upon success."
+					},
+					"response": []
+				},
+				{
+					"name": "list-board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{baseURL}}/board/",
+							"protocol": "http",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"board",
+								""
+							]
+						},
+						"description": "- Endpoint for retrieving all boards belonging to the authenticated user.\n    \n- Requires authentication using the `isAuthenticated` middleware.\n    \n- Fetches boards associated with the user and includes associated cards.\n    \n- Returns a JSON response with an array of user boards and their associated cards upon success."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to Boards and Cards."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
