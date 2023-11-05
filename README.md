@@ -40,7 +40,7 @@ Follow these steps to set up the project:
      - `baseURL`: The base URL for your API endpoints.
      - `authToken`: Your authentication token.
      - `userId`: Your user ID.
-     - `boardToken`: Your board token.
+     - `boardId`: Your board ID.
 
 Explore, test, and contribute to the ESS Assessment project. Enjoy your development journey!
 
